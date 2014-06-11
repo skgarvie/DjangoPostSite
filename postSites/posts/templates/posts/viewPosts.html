@@ -1,0 +1,53 @@
+{% load staticfiles %}
+{% load dajaxice_templatetags %} 	
+<script type="text/javascript"  src="{% static 'posts/jquery-1.8.2.js' %}"></script>
+<script type="text/javascript"  src="{% static 'posts/populate.js' %}"></script>
+<script type="text/javascript"  src="{% static 'posts/navigation.js' %}"></script>
+
+
+
+{% if posts %}
+		<div class="posts">
+			{% for post in posts %}
+			<div  id="{{ post.id }}" class="post row">
+				<div class="post_content">{{post.content}}</div>
+				<div class="post_date">{{post.pub_date}}</div>
+				<div class="viewComments">Show Comments</div>
+				<div id="comments_{{post.id}}" class="comments">
+					{% include 'posts/viewComments.html' %}
+				</div>
+				<div class="addComment">
+					<input type="text" class="addCommentContent" name="content" placeholder="Whats your TenCents Worth?" />
+					<input class="addCommentBtn" type="button" value="Comment"/>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+		<div class="pagination">
+    <span class="step-lin">
+        {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}"><i class="fa fa-arrow-circle-left"></i></a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+        </span>
+
+        {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}"><i class="fa fa-arrow-circle-right"></i></a>
+        {% endif %}
+    </span>
+</div>
+		{% else %}
+		<div class="noPosts">
+			<p>No Posts at Moment</p>
+		</div>
+{% endif %}
+
+		<div class="addPost">
+			<input type="text" id="text" class="addPostInput" placeholder="A Penny for your Thoughts...."/>
+		</br>
+			<input id="addPostBtn" type="button" value="Post"/>
+		</div>
+
+		

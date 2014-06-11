@@ -1,0 +1,11 @@
+{% if post.comment_set.all %}
+	{% for comment in post.comment_set.all %}
+		<div class="comment">
+			<div class="commentContent">{{ comment.content }}</div>
+		</div>
+	{% endfor %}
+{% else %}
+	<div class="comment noComments">
+		No Comments
+	</div>
+{% endif %}
