@@ -12,15 +12,6 @@ class DetailView(generic.ListView):
 	model = Post
 	template_name='posts/detail.html'
 
-class DetailView(generic.DetailView):
-	model = Post
-	template_name='posts/detail.html'
-
-class ResultsView(generic.DetailView):
-	model = Post
-	template_name='posts/results.html'
-
-
 def index(request):
     posts_list = Post.objects.all().order_by('-pub_date')
     paginator = Paginator(posts_list, 5) # Show 25 contacts per page
@@ -49,26 +40,6 @@ def viewComments(request, post_id):
 	context = {'post': post}
 	return render(request, 'posts/viewComments.html', context)
 	# return HttpResponse("You're looking at the results of poll %s." % post_id)
-
-def post(request):
-    if request.method == 'POST':
-        form = Form(data=request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponse("SuccessFully Saved")
-        else:
-            return HttpResponse("Error in saving")
-
-def comment(request,post_id):
-	return HttpResponse("word")
-	if request.method == 'POST':
-		form = Form(data=request.POST)
-		if form.is_valid():
-			form.save()
-			return HttpResponse("SuccessFully Saved")
-		else:
-			return HttpResponse("Error in saving")
-
 
 
 def listing(request):
